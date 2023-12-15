@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Pool, QueryConfig } from "pg";
 
 const {
     POSTGRES_HOST,
@@ -22,8 +22,23 @@ const pool = new Pool({
 console.info('Postgres Pool created.');
 
 const db = await pool.connect();
-const result = await db.query(`insert into manager.ger_daniel_teste values ('daniel') returning nome`);
-db.release();
+// const sql = `
+//     insert into manager.daniel values ('daniel')
+// `;
+// const sql = `
+//     update manager.daniel
+//     set name = 'salve'
+//     returning name
+// `;
+const sql = `
+    select * from manager.daniel
+`;
+const result = await db.query(sql);
 
-console.log(result.rows)
+
+// console.log('rows: ', result.rows)
+// console.log('fields: ', result.fields.map(({name}) => name.toUpperCase()));
+// console.log('rowCount: ', result.rowCount)
+
+db.release();
 
