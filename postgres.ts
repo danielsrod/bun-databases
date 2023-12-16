@@ -23,7 +23,8 @@ console.info('Postgres Pool created.');
 
 const db = await pool.connect();
 // const sql = `
-//     insert into manager.daniel values ('daniel')
+//     insert into manager.daniel values ('daniel', 24)
+//     returning name, idade
 // `;
 // const sql = `
 //     update manager.daniel
@@ -36,9 +37,10 @@ const sql = `
 const result = await db.query(sql);
 
 
-// console.log('rows: ', result.rows)
-// console.log('fields: ', result.fields.map(({name}) => name.toUpperCase()));
-// console.log('rowCount: ', result.rowCount)
+console.log('rows: ', result.rows)
+console.log('fields: ', result.fields.map(({name}) => name));
+console.log('rowCount: ', result.rowCount)
+console.log('outBinds: ', result.rows)
 
 db.release();
 
